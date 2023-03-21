@@ -33,26 +33,26 @@ public class SynonymService {
   public String addSynonym(final String word1, final String word2) {
     
     //if map contans key with word1 value, then find it and add word2 synonym
-    if (synonymMapContainsWord(word1, word2)) {
-      synonymTable.get(word1).add(word2);
+    if (synonymMapContainsWord(word1.toLowerCase(), word2.toLowerCase())) {
+      synonymTable.get(word1.toLowerCase()).add(word2.toLowerCase());
     }
     
     //the same if as previos, just the other way around
-    if (synonymMapContainsWord(word2, word1)) {
-      synonymTable.get(word2).add(word1);
+    if (synonymMapContainsWord(word2.toLowerCase(), word1.toLowerCase())) {
+      synonymTable.get(word2.toLowerCase()).add(word1.toLowerCase());
     }
     return "Synonym has been added succesufully";
   }
   
   public Set<String> findSynonymsForWord(final String word) {
     //if word can't be found, we will return the empty set of values
-    if (!synonymTable.containsKey(word)) {
+    if (!synonymTable.containsKey(word.toLowerCase())) {
       Set<String> synonyms = new HashSet<>();
-      synonymTable.put(word, synonyms);
+      //synonymTable.put(word, synonyms);
       return synonyms;
     }
     //else we will return list of synonyms for requested word
-    return synonymTable.get(word);
+    return synonymTable.get(word.toLowerCase());
   }
   
 }

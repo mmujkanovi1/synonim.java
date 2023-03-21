@@ -23,6 +23,7 @@ public class Application implements CommandLineRunner {
     synonymService.addSynonym("important", "large");
     synonymService.addSynonym("important", "big");
     synonymService.addSynonym("important", "critical");
+    synonymService.addSynonym("important", "BIG");
     
     
   }

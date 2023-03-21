@@ -26,7 +26,7 @@ public class SynonymController {
   
   @PostMapping("/add")
   public ResponseEntity<AddSynonymResponse> addSynonym(@RequestBody final AddSynonymRequest addSynonymRequest) {
-    AddSynonymResponse addSynonymResponse = new AddSynonymResponse(synonymService.addSynonym(addSynonymRequest.getWord().toLowerCase(), addSynonymRequest.getWord2().toLowerCase()));
+    AddSynonymResponse addSynonymResponse = new AddSynonymResponse(synonymService.addSynonym(addSynonymRequest.getWord(), addSynonymRequest.getWord2()));
   
     return new ResponseEntity<>(
         addSynonymResponse,
@@ -36,7 +36,7 @@ public class SynonymController {
   
   @PostMapping("/find")
   public ResponseEntity<FindSynonymResponse> findSynonyms(@RequestBody final FindSynonymRequest findSynonymRequest) {
-    FindSynonymResponse findSynonymResponse = new FindSynonymResponse(synonymService.findSynonymsForWord(findSynonymRequest.getWord().toLowerCase()));
+    FindSynonymResponse findSynonymResponse = new FindSynonymResponse(synonymService.findSynonymsForWord(findSynonymRequest.getWord()));
     return new ResponseEntity<>(
         findSynonymResponse,
         HttpStatus.OK
