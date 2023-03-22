@@ -51,8 +51,6 @@ public class SynonymService {
   }
   
   private void transitiveRule(final String word1, final String word2) {
-    addingValuesIntoMap(word1, word2);
-    addingValuesIntoMap(word2, word1);
     for (String word : synonymTable.get(word1)) {
       if (!word.equals(word2)) {
         synonymTable.get(word).add(word2);
