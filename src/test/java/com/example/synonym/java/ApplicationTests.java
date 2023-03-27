@@ -4,11 +4,15 @@ import com.example.synonym.java.request.AddSynonymRequest;
 import com.example.synonym.java.request.FindSynonymRequest;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest
+@ActiveProfiles("test")
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ApplicationTests {
   
   private String host = "http://localhost:8080/synonym";

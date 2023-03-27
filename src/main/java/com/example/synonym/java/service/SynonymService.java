@@ -42,12 +42,18 @@ public class SynonymService {
   public String addSynonym(final String word1, final String word2) {
     
     if (word1.toLowerCase().equals(word2.toLowerCase())) {
-      return "Word and it's synonym are the same and can't be added";
+      return "Word and it's synonym are the same";
+    }
+    
+    if (synonymMapContainsWord(word1.toLowerCase(), word2.toLowerCase())) {
+      if (synonymTable.get(word1.toLowerCase()).contains(word2.toLowerCase())) {
+        return "Synonym is already here";
+      }
     }
     addingValuesIntoMap(word1, word2);
     addingValuesIntoMap(word2, word1);
     transitiveRule(word1.toLowerCase(), word2.toLowerCase());
-    return "Synonym has been added succesufully";
+    return "Synonym added succesufully";
   }
   
   private void transitiveRule(final String word1, final String word2) {
