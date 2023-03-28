@@ -20,25 +20,48 @@ public class Application implements CommandLineRunner {
   
   @Override
   public void run(final String... args) {
-    synonymService.addSynonym("important", "large");
-    synonymService.addSynonym("big1", "large");
-    synonymService.addSynonym("important", "big");
-    synonymService.addSynonym("important", "critical");
-    synonymService.addSynonym("important", "BIG");
+    synonymService.addSynonym("beautifull", "pretty");
+    synonymService.addSynonym("pretty", "good-looking");
+    synonymService.addSynonym("beaut", "atractive");
+    synonymService.addSynonym("pleasing", "georgeus");
+    synonymService.addSynonym("pleasing", "atractive");
+    synonymService.addSynonym("atractive", "pretty");
+    synonymService.addSynonym("lovely", "alluring");
+    synonymService.addSynonym("lovely", "beautifull");
+    synonymService.addSynonym("magnificent", "beautifull");
   
-    synonymService.addSynonym("large", "string");
-    synonymService.addSynonym("string", "prvi");
-    synonymService.addSynonym("nevezano", "nevezano1");
-    synonymService.addSynonym("nevezano", "nevezano");
-    synonymService.addSynonym("big1", "Large");
-    synonymService.addSynonym("large", "laptop");
-    synonymService.addSynonym("nevezano", "big");
-    synonymService.addSynonym("tv", "tv1");
-    synonymService.addSynonym("tv2", "tv1");
-    synonymService.addSynonym("tv3", "tv2");
-    synonymService.addSynonym("tv2", "tv4");
-    synonymService.addSynonym("tv2", "laptop");
+  //  Good- acceptable, favorable, positive, satisfactory, satisfying, valuable, efficient, proper,  suitable
     
+    synonymService.addSynonym("Good-acceptable", "favorable");
+    synonymService.addSynonym("positive", "satisfactory");
+    synonymService.addSynonym("satisfactory", "favorable");
+    synonymService.addSynonym("satisfying", "valuable");
+    synonymService.addSynonym("efficient", "valuable");
+    synonymService.addSynonym("proper", "suitable");
+    synonymService.addSynonym("Good-acceptable", "suitable");
+    synonymService.addSynonym("Good-acceptable", "satisfying");
   
+    synonymService.addSynonym("Happy-content", "contented");
+    synonymService.addSynonym("joyful", "contented");
+    synonymService.addSynonym("merry", "jovial");
+    synonymService.addSynonym("cheery", "fortunate");
+    synonymService.addSynonym("fortunate", "contented");
+    synonymService.addSynonym("cheery", "merry");
+    synonymService.addSynonym("delighted", "joyous");
+    synonymService.addSynonym("joyous", "ecstatic");
+    synonymService.addSynonym("cheery", "thrilled");
+    synonymService.addSynonym("cheery", "elated");
+    synonymService.addSynonym("joyous", "thrilled");
+  
+    //Ethical-moral, right-minded, right-thinking, righteous, blameless, guiltless, virtuous, trustworthy, just
+  
+    synonymService.addSynonym("Ethical-moral", "right-minded");
+    synonymService.addSynonym("right-thinking", "right-minded");
+    synonymService.addSynonym("righteous", "blameless");
+    synonymService.addSynonym("blameless", "guiltless");
+    synonymService.addSynonym("right-minded", "guiltless");
+    synonymService.addSynonym("virtuous", "righteous");
+    synonymService.addSynonym("trustworthy", "just");
+    synonymService.addSynonym("right-minded", "trustworthy");
   }
 }

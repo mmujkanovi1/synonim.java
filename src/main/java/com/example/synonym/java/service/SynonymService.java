@@ -1,12 +1,12 @@
 package com.example.synonym.java.service;
 
-
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -14,10 +14,10 @@ public class SynonymService {
   
   // created map with key(String) and it's synonyms(Set<String>)
   //why Set instead of List? With this approach we will avoid checking whether synonym is already exist, set does not duplicate the values!!!
-  private Map<String, Set<String>> synonymTable = new HashMap<>();
+  private Map<String, Set<String>> synonymTable = new ConcurrentHashMap<>();
   
   //checking whether synonymMap contains key with the requested word
-  private boolean synonymMapContainsWord(final String word1, final String word2) {
+  private boolean synonymMapContainsKey(final String word1) {
     Set<String> synonyms = new HashSet<>();
     if (!synonymTable.containsKey(word1)) {
       return false;
@@ -25,60 +25,65 @@ public class SynonymService {
     return true;
   }
   
-  private void addingValuesIntoMap(final String word1, final String word2) {
-    Set<String> emptySet = new HashSet<>();
-    //if map contans key with word1 value, then find it and add word2 synonym
-    
-    if (synonymMapContainsWord(word1.toLowerCase(), word2.toLowerCase())) {
-      synonymTable.get(word1.toLowerCase()).add(word2.toLowerCase());
-    } else {
-      emptySet.add(word2.toLowerCase());
-      synonymTable.put(word1.toLowerCase(), emptySet);
-    }
-    
+  //checking whether synonymMap contains synonym already
+  private boolean synonymMapContainsSynonym(final String word1, final String word2) {
+    return synonymTable.get(word1).contains(word2);
   }
   
-  //add synonyms in both ways
+  //in this method everything (word1, his synonyms, word2, his synonyms) has been added in one set
+  private Set<String> addEverySynonymToOneCollection(final String word1, final String word2, final Set<String> synonymsWord1, final Set<String> synonmsWord2) {
+    Set<String> allSynonymsSet = new HashSet<>();
+    allSynonymsSet.addAll(synonymsWord1);
+    allSynonymsSet.addAll(synonmsWord2);
+    allSynonymsSet.add(word1);
+    allSynonymsSet.add(word2);
+    return allSynonymsSet;
+  }
+  
+  //whole logic for addSynonyms
+  private void addingValuesWithTransitiveRule(final String word1, final String word2) {
+    Set<String> synonymsWord1Key = synonymTable.get(word1);
+    boolean isItPresentInMap = true;
+    if (synonymsWord1Key == null) {  //if word1 does not contains synonyms we are setting synonymsWord1Key to be empty, not null
+      isItPresentInMap = false;
+      synonymsWord1Key = new HashSet<String>();
+    }
+    Set<String> synonymsWord2Key = synonymTable.get(word2);
+    if (synonymsWord2Key == null) {  //the same excercise for synonymsWord2Key
+      synonymsWord2Key = new HashSet<>();
+      if (!isItPresentInMap) {       // if word1 and word2 have empty list of synonyms I set them to be each other synonyms and return
+        synonymsWord2Key.add(word2);
+        synonymTable.put(word1, synonymsWord2Key);
+        synonymsWord1Key.add(word1);
+        synonymTable.put(word2, synonymsWord1Key);
+        return;
+      }
+    }
+    Set<String> wholeSynonymList = addEverySynonymToOneCollection(word1, word2, synonymsWord1Key, synonymsWord2Key);
+    for (String value : wholeSynonymList) { //set each value from wholeSynonymList to be key and wholeSynonymList as the key synonyms
+      if (wholeSynonymList.contains(value)) {
+        synonymTable.put(value, wholeSynonymList.stream().filter(s -> s != value).collect(Collectors.toSet())); //filtering to avoid this situation beautifull -> pretty, beautifull...
+      } else {
+        synonymTable.put(value, wholeSynonymList);
+      }
+    }
+  }
+  
   public String addSynonym(final String word1, final String word2) {
-    
     if (word1.toLowerCase().equals(word2.toLowerCase())) {
-      return "Word and it's synonym are the same";
+      return "Word and his synonym are the same";
     }
     
-    if (synonymMapContainsWord(word1.toLowerCase(), word2.toLowerCase())) {
-      if (synonymTable.get(word1.toLowerCase()).contains(word2.toLowerCase())) {
+    if (synonymMapContainsKey(word1.toLowerCase())) {
+      if (synonymMapContainsSynonym(word1.toLowerCase(), word2.toLowerCase())) {
         return "Synonym is already here";
       }
     }
-    addingValuesIntoMap(word1, word2);
-    addingValuesIntoMap(word2, word1);
-    transitiveRule(word1.toLowerCase(), word2.toLowerCase());
+    
+    addingValuesWithTransitiveRule(word1.toLowerCase(), word2.toLowerCase());
     return "Synonym added succesufully";
   }
   
-  private void transitiveRule(final String word1, final String word2) {
-    for (String word : synonymTable.get(word1)) {
-      if (!word.equals(word2)) {
-        synonymTable.get(word).add(word2);
-        synonymTable.get(word2).add(word);
-      }
-      if (!synonymTable.get(word2).isEmpty()) {
-        for (String word01 : synonymTable.get(word2)) {
-          if (!word.equals(word01)) {
-            synonymTable.get(word).add(word01);
-            synonymTable.get(word01).add(word);
-          }
-        }
-      }
-    }
-    for (String word : synonymTable.get(word2)) {
-      if (!word.equals(word1)) {
-        synonymTable.get(word).add(word1);
-        synonymTable.get(word1).add(word);
-      }
-    }
-    
-  }
   
   public Set<String> findSynonymsForWord(final String word) {
     //if word can't be found, we will return the empty set of values
