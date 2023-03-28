@@ -20,15 +20,15 @@ public class Application implements CommandLineRunner {
   
   @Override
   public void run(final String... args) {
-    synonymService.addSynonym("beautifull", "pretty");
+    synonymService.addSynonym("beautiful", "pretty");
     synonymService.addSynonym("pretty", "good-looking");
     synonymService.addSynonym("beaut", "atractive");
-    synonymService.addSynonym("pleasing", "georgeus");
+    synonymService.addSynonym("pleasing", "gorgeous");
     synonymService.addSynonym("pleasing", "atractive");
     synonymService.addSynonym("atractive", "pretty");
     synonymService.addSynonym("lovely", "alluring");
-    synonymService.addSynonym("lovely", "beautifull");
-    synonymService.addSynonym("magnificent", "beautifull");
+    synonymService.addSynonym("lovely", "beautiful");
+    synonymService.addSynonym("magnificent", "beautiful");
   
   //  Good- acceptable, favorable, positive, satisfactory, satisfying, valuable, efficient, proper,  suitable
     
