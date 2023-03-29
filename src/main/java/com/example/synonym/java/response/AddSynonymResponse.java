@@ -7,6 +7,9 @@ public class AddSynonymResponse {
   @JsonProperty("responseMessage")
   private String addSynonymResponseMessage;
   
+  public AddSynonymResponse() {
+  }
+  
   public AddSynonymResponse(final String addSynonymResponseMessage) {
     this.addSynonymResponseMessage = addSynonymResponseMessage;
   }

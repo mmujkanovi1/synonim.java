@@ -20,6 +20,7 @@ public class Application implements CommandLineRunner {
   
   @Override
   public void run(final String... args) {
+    
     synonymService.addSynonym("beautiful", "pretty");
     synonymService.addSynonym("pretty", "good-looking");
     synonymService.addSynonym("beaut", "atractive");
@@ -63,5 +64,9 @@ public class Application implements CommandLineRunner {
     synonymService.addSynonym("virtuous", "righteous");
     synonymService.addSynonym("trustworthy", "just");
     synonymService.addSynonym("right-minded", "trustworthy");
+  
   }
+  
+  
+  
 }

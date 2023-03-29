@@ -42,6 +42,8 @@ public class SynonymService {
   
   //whole logic for addSynonyms
   private void addingValuesWithTransitiveRule(final String word1, final String word2) {
+  
+  
     Set<String> synonymsWord1Key = synonymTable.get(word1);
     boolean isItPresentInMap = true;
     if (synonymsWord1Key == null) {  //if word1 does not contains synonyms we are setting synonymsWord1Key to be empty, not null
@@ -59,13 +61,21 @@ public class SynonymService {
         return;
       }
     }
+    /*
+    if(!synonymMapContainsKey(word1) && !synonymMapContainsKey(word2)){
+      synonymsWord2Key.add(word2);
+      synonymTable.put(word1, synonymsWord2Key);
+      synonymsWord1Key.add(word1);
+      synonymTable.put(word2, synonymsWord1Key);
+      return;
+    }
+    
+     */
+  
+  
     Set<String> wholeSynonymList = addEverySynonymToOneCollection(word1, word2, synonymsWord1Key, synonymsWord2Key);
     for (String value : wholeSynonymList) { //set each value from wholeSynonymList to be key and wholeSynonymList as the key synonyms
-      if (wholeSynonymList.contains(value)) {
-        synonymTable.put(value, wholeSynonymList.stream().filter(s -> s != value).collect(Collectors.toSet())); //filtering to avoid this situation beautifull -> pretty, beautifull...
-      } else {
-        synonymTable.put(value, wholeSynonymList);
-      }
+      synonymTable.put(value, wholeSynonymList.stream().filter(s -> s != value).collect(Collectors.toSet())); //filtering to avoid this situation beautiful -> pretty, beautiful...
     }
   }
   
