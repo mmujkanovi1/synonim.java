@@ -6,20 +6,24 @@ import io.restassured.RestAssured;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class ApplicationTests {
   
-  private String host = "http://localhost:8080/synonym";
+  private String host = "http://localhost:";
   
-  private String pathAddSynonym = "/add";
+  private String pathAddSynonym = "/synonym/add";
   
-  private String pathFindSynonym = "/find";
+  private String pathFindSynonym = "/synonym/find";
+  
+  @LocalServerPort
+  private Integer port;
   
   @Test
   void createSynonym() {
@@ -29,7 +33,7 @@ class ApplicationTests {
         .contentType(MediaType.APPLICATION_JSON_VALUE)
         .body(addSynonymRequest)
         .when()
-        .post(host + pathAddSynonym)
+        .post(host + port + pathAddSynonym)
         .then()
         .statusCode(HttpStatus.OK.value());
   }
@@ -42,7 +46,7 @@ class ApplicationTests {
         .contentType(MediaType.APPLICATION_JSON_VALUE)
         .body(findSynonymRequest)
         .when()
-        .post(host + pathFindSynonym)
+        .post(host + port + pathFindSynonym)
         .then()
         .statusCode(HttpStatus.OK.value());
   }
@@ -55,7 +59,7 @@ class ApplicationTests {
         .contentType(MediaType.APPLICATION_JSON_VALUE)
         .body(findSynonymRequest)
         .when()
-        .post(host + pathFindSynonym)
+        .post(host + port + pathFindSynonym)
         .then()
         .statusCode(HttpStatus.OK.value());
   }

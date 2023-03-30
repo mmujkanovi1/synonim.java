@@ -24,26 +24,31 @@ added to the pom file to fail the maven build if there are any violations or war
  Swagger 2.7.0: http://localhost:8080/swagger-ui.html
  
  ### How to install and run application? ###
- 1. Download jar file from the repository
- 2. Open cmd as administrator
+ 1. Clone the project,
+ 2. Go into the root of the project and execute the command to build the jar file:
+  ```bash
+  mvn package
+  ```
+ 2. Open cmd as administrator,
  3. Type: 
  ```bash
  java -jar /path/to/jar/file.jar
  ```
+Jar file after "mvn package" is located in the "target" folder, which is also built with the same command, and you can locate it wherever you want.
  
- #### How to run application on dev enviroment? ####
+ #### How to run application on dev environment? ####
  * Type in cmd: 
  ```bash
  java -jar -Dspring.profiles.active=dev /path/to/jar/file.jar
  ```
  
- #### How to run application on prod enviroment? ####
+ #### How to run application on prod environment? ####
  * Type in cmd:
  ```bash
  java -jar -Dspring.profiles.active=prod /path/to/jar/file.jar
  ```
  
- #### How to run application on test enviroment? ####
+ #### How to run application on test environment? ####
  
  Type in cmd:
  
@@ -65,7 +70,7 @@ Request body:
 ```
 {
   "word": "string",
-  "word2": "string"
+  "word2": "string2"
 }
 ```
 
@@ -74,10 +79,28 @@ Request body:
 Response body:
 ```
 {
-  "responseMessage": "Synonym has been added succesufully"
+  "responseMessage": "Synonym added successfully"
 }
 ```
+
 Response status: 200
+
+if word and it's synonym already exist in map:
+
+```
+{
+  "responseMessage": "Synonym is already here! Try again."
+}
+```
+
+if word and it's synonym are the same:
+
+```
+{
+  "responseMessage": "The word and its synonym are the same! Try again."
+}
+```
+
 
 If we send empty "word" or "word2" response status should be 400.
 
@@ -107,6 +130,5 @@ Response body:
 ```
 Response status: 200
 
-If we send empty "word" response status should be 400.
 
 

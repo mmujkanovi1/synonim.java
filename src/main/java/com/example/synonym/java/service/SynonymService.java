@@ -61,18 +61,7 @@ public class SynonymService {
         return;
       }
     }
-    /*
-    if(!synonymMapContainsKey(word1) && !synonymMapContainsKey(word2)){
-      synonymsWord2Key.add(word2);
-      synonymTable.put(word1, synonymsWord2Key);
-      synonymsWord1Key.add(word1);
-      synonymTable.put(word2, synonymsWord1Key);
-      return;
-    }
     
-     */
-  
-  
     Set<String> wholeSynonymList = addEverySynonymToOneCollection(word1, word2, synonymsWord1Key, synonymsWord2Key);
     for (String value : wholeSynonymList) { //set each value from wholeSynonymList to be key and wholeSynonymList as the key synonyms
       synonymTable.put(value, wholeSynonymList.stream().filter(s -> s != value).collect(Collectors.toSet())); //filtering to avoid this situation beautiful -> pretty, beautiful...
@@ -81,17 +70,17 @@ public class SynonymService {
   
   public String addSynonym(final String word1, final String word2) {
     if (word1.toLowerCase().equals(word2.toLowerCase())) {
-      return "Word and his synonym are the same";
+      return "The word and its synonym are the same! Try again.";
     }
     
     if (synonymMapContainsKey(word1.toLowerCase())) {
       if (synonymMapContainsSynonym(word1.toLowerCase(), word2.toLowerCase())) {
-        return "Synonym is already here";
+        return "Synonym is already here! Try again.";
       }
     }
     
     addingValuesWithTransitiveRule(word1.toLowerCase(), word2.toLowerCase());
-    return "Synonym added succesufully";
+    return "Synonym added successfully";
   }
   
   
