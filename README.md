@@ -14,7 +14,7 @@ Also, the transitive rule has been implemented, i.e. if "B" is a synonym to "A" 
 
 ### Implementation
 The app contains two endpoints:
-- Add a new synonym with two parametars (the word and its synonym)
+- Add a new synonym with two parameters (the word and its synonym)
 - Search synonyms for the requested word with one parameter (the word for which synonyms we want to be shown).
 
 You can also run it in dev, prod and test
@@ -23,7 +23,7 @@ added to the pom file to fail the maven build if there are any violations or war
 
  Swagger 2.7.0: http://localhost:8080/swagger-ui.html
  
- ### How to install and run application? ###
+ ### How to install and run the application? ###
  1. Clone the project,
  2. Go into the root of the project and execute the command to build the jar file:
   ```bash
@@ -36,19 +36,19 @@ added to the pom file to fail the maven build if there are any violations or war
  ```
 Jar file after "mvn package" is located in the "target" folder, which is also built with the same command, and you can locate it wherever you want.
  
- #### How to run application on dev environment? ####
+ #### How to run the application on dev environment? ####
  * Type in cmd: 
  ```bash
  java -jar -Dspring.profiles.active=dev /path/to/jar/file.jar
  ```
  
- #### How to run application on prod environment? ####
+ #### How to run the application on prod environment? ####
  * Type in cmd:
  ```bash
  java -jar -Dspring.profiles.active=prod /path/to/jar/file.jar
  ```
  
- #### How to run application on test environment? ####
+ #### How to run the application on test environment? ####
  
  Type in cmd:
  
