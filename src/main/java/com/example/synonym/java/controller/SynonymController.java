@@ -32,7 +32,7 @@ public class SynonymController {
   @PostMapping("/add")
   public ResponseEntity<AddSynonymResponse> addSynonym(@Valid @RequestBody final AddSynonymRequest addSynonymRequest) {
     AddSynonymResponse addSynonymResponse = new AddSynonymResponse(synonymService.addSynonym(addSynonymRequest.getWord(), addSynonymRequest.getWord2()));
-    logger.info("New synonym has been added: " + addSynonymRequest.getWord() + " -> " + addSynonymRequest.getWord2());
+    logger.info("Adding new synonym: " + addSynonymRequest.getWord() + " -> " + addSynonymRequest.getWord2());
     return new ResponseEntity<>(
         addSynonymResponse,
         HttpStatus.OK
@@ -42,7 +42,7 @@ public class SynonymController {
   @PostMapping("/find")
   public ResponseEntity<FindSynonymResponse> findSynonyms(@Valid @RequestBody final FindSynonymRequest findSynonymRequest) {
     FindSynonymResponse findSynonymResponse = new FindSynonymResponse(synonymService.findSynonymsForWord(findSynonymRequest.getWord()));
-    logger.info("Synonyms for " + findSynonymRequest.getWord());
+    logger.info("Listing synonyms for " + findSynonymRequest.getWord());
     return new ResponseEntity<>(
         findSynonymResponse,
         HttpStatus.OK

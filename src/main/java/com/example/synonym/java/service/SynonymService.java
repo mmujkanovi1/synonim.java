@@ -69,29 +69,29 @@ public class SynonymService {
   }
   
   public String addSynonym(final String word1, final String word2) {
-    if (word1.toLowerCase().equals(word2.toLowerCase())) {
+    if (word1.trim().toLowerCase().equals(word2.trim().toLowerCase())) {
       return "The word and its synonym are the same! Try again.";
     }
     
     if (synonymMapContainsKey(word1.toLowerCase())) {
-      if (synonymMapContainsSynonym(word1.toLowerCase(), word2.toLowerCase())) {
+      if (synonymMapContainsSynonym(word1.trim().toLowerCase(), word2.trim().toLowerCase())) {
         return "Synonym is already here! Try again.";
       }
     }
     
-    addingValuesWithTransitiveRule(word1.toLowerCase(), word2.toLowerCase());
+    addingValuesWithTransitiveRule(word1.trim().toLowerCase(), word2.trim().toLowerCase());
     return "Synonym added successfully";
   }
   
   
   public Set<String> findSynonymsForWord(final String word) {
     //if word can't be found, we will return the empty set of values
-    if (!synonymTable.containsKey(word.toLowerCase())) {
+    if (!synonymTable.containsKey(word.trim().toLowerCase())) {
       Set<String> synonyms = new HashSet<>();
       return synonyms;
     }
     //else we will return list of synonyms for requested word
-    return synonymTable.get(word.toLowerCase());
+    return synonymTable.get(word.trim().toLowerCase());
   }
   
 }
